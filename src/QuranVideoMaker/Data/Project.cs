@@ -831,7 +831,7 @@ namespace QuranVideoMaker.Data
                     if (clip is ProjectClip projectClip && !string.IsNullOrEmpty(projectClip.FilePath) && File.Exists(projectClip.FilePath))
                     {
                         var newFilePath = Path.Combine(directory, Path.GetFileName(projectClip.FilePath));
-                        File.Move(projectClip.FilePath, newFilePath);
+                        File.Copy(projectClip.FilePath, newFilePath);
                         projectClip.FilePath = newFilePath;
                     }
                 }
@@ -842,12 +842,6 @@ namespace QuranVideoMaker.Data
                 var newProjectFilePath = Path.Combine(directory, Path.GetFileName(oldProjectFilePath));
 
                 System.IO.File.WriteAllText(newProjectFilePath, projectContent);
-
-                // remove the old project file if it exists
-                if (File.Exists(oldProjectFilePath))
-                {
-                    File.Delete(oldProjectFilePath);
-                }
 
                 return new OperationResult(true, "Project files moved successfully.");
             }
