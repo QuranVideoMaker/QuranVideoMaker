@@ -320,6 +320,36 @@ namespace QuranVideoMaker
         }
 
         [RelayCommand]
+        private void OnMoveProjectFiles()
+        {
+            var ofd = new OpenFolderDialog
+            {
+                Title = "Select the folder to move the project files to",
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() != true)
+            {
+                return;
+            }
+
+            var result = CurrentProject.MoveProjectFiles(ofd.FolderName, ProjectFilePath);
+
+            if (result.Success)
+            {
+                ProjectFilePath = Path.Combine(ofd.FolderName, Path.GetFileName(ProjectFilePath));
+                AddRecentProject(ProjectFilePath);
+                OnPropertyChanged(nameof(Title));
+
+                MessageBox.Show("Project files moved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show(result.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        [RelayCommand]
         private void OnProjectSettings()
         {
             QuranVideoMakerUI.ShowDialog(DialogType.ProjectSettings, CurrentProject);

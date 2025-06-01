@@ -816,6 +816,47 @@ namespace QuranVideoMaker.Data
             }
         }
 
+        public OperationResult MoveProjectFiles(string directory, string oldProjectFilePath)
+        {
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+            {
+                return new OperationResult(false, "Invalid directory specified.");
+            }
+
+            try
+            {
+                // move clips
+                foreach (var clip in Clips)
+                {
+                    if (clip is ProjectClip projectClip && !string.IsNullOrEmpty(projectClip.FilePath) && File.Exists(projectClip.FilePath))
+                    {
+                        var newFilePath = Path.Combine(directory, Path.GetFileName(projectClip.FilePath));
+                        File.Move(projectClip.FilePath, newFilePath);
+                        projectClip.FilePath = newFilePath;
+                    }
+                }
+
+                // move the project file itself
+                var projectContent = ProjectSerializer.Serialize(this);
+
+                var newProjectFilePath = Path.Combine(directory, Path.GetFileName(oldProjectFilePath));
+
+                System.IO.File.WriteAllText(newProjectFilePath, projectContent);
+
+                // remove the old project file if it exists
+                if (File.Exists(oldProjectFilePath))
+                {
+                    File.Delete(oldProjectFilePath);
+                }
+
+                return new OperationResult(true, "Project files moved successfully.");
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult(false, ex.Message);
+            }
+        }
+
         /// <summary>
         /// Cut current selected items.
         /// </summary>
