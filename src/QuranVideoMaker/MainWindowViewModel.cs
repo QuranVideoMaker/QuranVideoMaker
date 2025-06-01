@@ -341,7 +341,7 @@ namespace QuranVideoMaker
                 AddRecentProject(ProjectFilePath);
                 OnPropertyChanged(nameof(Title));
 
-                MessageBox.Show("Project files moved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Project files copied to the new location successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
