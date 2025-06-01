@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="nulastudio.NetBeauty" Version="2.1.4.6" />
+		<PackageReference Include="nulastudio.NetBeauty" Version="2.1.5" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 	</ItemGroup>
 

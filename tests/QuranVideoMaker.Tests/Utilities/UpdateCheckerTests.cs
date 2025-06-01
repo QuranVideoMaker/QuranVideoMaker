@@ -5,7 +5,7 @@ namespace QuranVideoMaker.Tests.Utilities
     public class UpdateCheckerTests
     {
         [Fact]
-        public async void CheckForUpdates()
+        public async Task CheckForUpdates()
         {
             // Arrange
 
