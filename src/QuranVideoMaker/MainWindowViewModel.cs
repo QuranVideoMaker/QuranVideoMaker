@@ -593,7 +593,10 @@ namespace QuranVideoMaker
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load recent projects: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                RecentProjects = new List<RecentProject>();
+
+                // should not bother user with this, but log it for debugging purposes
+                Debug.WriteLine($"Error loading recent projects: {ex.Message}");
             }
         }
 
