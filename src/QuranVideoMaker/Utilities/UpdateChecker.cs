@@ -20,7 +20,7 @@ namespace QuranVideoMaker.Utilities
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Add("User-Agent", "QuranVideoMaker");
-                    var latestRelease = await client.GetFromJsonAsync<LatestReleaseInfo>("https://api.github.com/repos/rebinf/QuranVideoMaker/releases/latest");
+                    var latestRelease = await client.GetFromJsonAsync<LatestReleaseInfo>("https://api.github.com/repos/QuranVideoMaker/QuranVideoMaker/releases/latest");
 
                     if (latestRelease != null)
                     {
